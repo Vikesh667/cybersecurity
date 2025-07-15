@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { User } = require("../model/User");
-const SECRET_KEY = "MY_SECRET_KEY";
 const createUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -41,7 +40,7 @@ const login = async (req, res) => {
         name: user.name,
         role: user.role,
       },
-      SECRET_KEY,
+      process.env.SECRET_KEY,
       { expiresIn: "2h" }
     );
 

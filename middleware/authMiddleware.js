@@ -12,7 +12,7 @@ exports.protect = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-   const decoded = jwt.verify(token, SECRET_KEY);
+   const decoded = jwt.verify(token, process.env.SECRET_KEY);
     const user = await User.findById(decoded.userId).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
 

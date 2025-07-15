@@ -9,10 +9,12 @@ const { categoryRouter } = require("./routes/CateogryRoute");
 const { userRoutersById } = require("./routes/User");
 const { cartRoutes } = require("./routes/Cart");
 const { notificationRouters } = require("./routes/NotificationRoutes");
+const { popRouter } = require("./routes/PopupRouters");
 
 const app = express();
 const server = http.createServer(app); // ✅ wrap express app with HTTP server
-
+ require("dotenv").config()
+ const PORT=process.env.PORT
 const io = new Server(server, {
   cors: {
     origin: "*", // allow all origins or your frontend URL
@@ -38,7 +40,7 @@ app.use("/api", categoryRouter);
 app.use("/api", userRoutersById);
 app.use("/api", cartRoutes);
 app.use("/api", notificationRouters);
-
+app.use("/api",popRouter)
 // ✅ Socket.io logic
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
@@ -49,6 +51,6 @@ io.on("connection", (socket) => {
 });
 
 // ✅ Start server with socket support
-server.listen(4000, () => {
-  console.log("Server is running on http://localhost:4000");
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
