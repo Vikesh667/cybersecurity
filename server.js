@@ -41,6 +41,7 @@ app.use("/api", userRoutersById);
 app.use("/api", cartRoutes);
 app.use("/api", notificationRouters);
 app.use("/api",popRouter)
+
 // ✅ Socket.io logic
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
