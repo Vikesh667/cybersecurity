@@ -1,4 +1,5 @@
 const express = require("express");
+ require("dotenv").config()
 const http = require("http"); // ✅ create HTTP server
 const { Server } = require("socket.io"); // ✅ socket.io
 const { dbConnection } = require("./db");
@@ -10,10 +11,10 @@ const { userRoutersById } = require("./routes/User");
 const { cartRoutes } = require("./routes/Cart");
 const { notificationRouters } = require("./routes/NotificationRoutes");
 const { popRouter } = require("./routes/PopupRouters");
+const photosRouter = require("./routes/photoRouter");
 
 const app = express();
 const server = http.createServer(app); // ✅ wrap express app with HTTP server
- require("dotenv").config()
  const PORT=process.env.PORT
 const io = new Server(server, {
   cors: {
@@ -41,7 +42,7 @@ app.use("/api", userRoutersById);
 app.use("/api", cartRoutes);
 app.use("/api", notificationRouters);
 app.use("/api",popRouter)
-
+app.use("/api",photosRouter)
 // ✅ Socket.io logic
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
@@ -50,7 +51,6 @@ io.on("connection", (socket) => {
     console.log("Socket disconnected:", socket.id);
   });
 });
-
 // ✅ Start server with socket support
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
