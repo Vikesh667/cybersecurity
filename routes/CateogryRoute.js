@@ -5,6 +5,6 @@ const categoryRouter = express.Router();
 categoryRouter.post("/category",createCategory)
 categoryRouter.get("/categories", getCategory);
 
-// Register route
+
 
 module.exports = { categoryRouter  }; // ✅ use default export

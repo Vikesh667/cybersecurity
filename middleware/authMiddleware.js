@@ -15,8 +15,7 @@ exports.protect = async (req, res, next) => {
     const user = await User.findById(decoded.userId).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    req.user = user; // ✅ Now available in checkAuth
-    console.log(req.user)
+    req.user = user; 
     next();
   } catch (err) {
     console.error("JWT error:", err.message);

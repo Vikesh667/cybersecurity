@@ -19,7 +19,6 @@ const updatePopupPostion = async (req, res) => {
       return res.status(404).json({ message: "Popup not found" });
     }
 
-    // Only update provided fields
     if (req.body.position?.top) popup.position.top = req.body.position.top;
     if (req.body.position?.left) popup.position.left = req.body.position.left;
     if (req.body.position?.text) popup.position.text = req.body.position.text;

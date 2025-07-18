@@ -38,8 +38,6 @@ const login = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
-
-    // Include user data in the token payload
     const token = jwt.sign(
       {
         userId: user._id,
@@ -61,7 +59,6 @@ const login = async (req, res) => {
 const checkAuth = async (req, res) => {
   try {
     res.json(req.user); 
-                        // Works because protect middleware sets req.user
   } catch (error) {
     res.status(500).json({ message: "Error fetching user" });
   }

@@ -15,11 +15,11 @@ const addToCart = async (req, res) => {
   try {
     const cart = new Cart({
       ...req.body,
-      user: req.user._id // assumes middleware sets req.user
+      user: req.user._id 
     });
 
     const doc = await cart.save();
-    const result = await doc.populate("product"); // ✅ Use lowercase field name
+    const result = await doc.populate("product"); 
     res.status(201).json(result);
   } catch (error) {
     console.error("Add to cart error:", error);
@@ -35,7 +35,7 @@ const updateCart = async (req, res) => {
   const { id } = req.params;
   try {
     const cart = await Cart.findByIdAndUpdate(id, req.body, { new: true });
-    const result = await cart.populate("product"); // ✅ Fix here
+    const result = await cart.populate("product"); 
     res.status(200).json({ success: true, result });
   } catch (error) {
     res.status(400).json({ success: false, error });

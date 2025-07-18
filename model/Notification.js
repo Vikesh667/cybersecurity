@@ -4,7 +4,7 @@ const notificationSchema = new mongoose.Schema(
   {
     _id: {
       type: String,
-      default: "singleton", // force unique document
+      default: "singleton", 
     },
     isNotification: {
       type: Boolean,

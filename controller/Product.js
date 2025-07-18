@@ -8,7 +8,7 @@ const { Product } = require("../model/Product");
   }
 };
 
-// Get all products
+
 const fetchAllProduct = async (req, res) => {
   try {
     let condition = {};
@@ -52,7 +52,7 @@ const fetchAllProduct = async (req, res) => {
 };
 
 
-// Get a single product by ID
+
  const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -65,7 +65,7 @@ const fetchAllProduct = async (req, res) => {
   }
 };
 
-// Update product
+
  const updateProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -80,7 +80,6 @@ const fetchAllProduct = async (req, res) => {
   }
 };
 
-// Delete product
  const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);

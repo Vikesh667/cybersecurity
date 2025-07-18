@@ -9,4 +9,4 @@ router.post("/register", createUser);
 router.post("/login", login);
 router.get("/check",protect,checkAuth)
 
-module.exports = { router }; // ✅ use default export
+module.exports = { router };

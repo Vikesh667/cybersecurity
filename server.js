@@ -1,7 +1,7 @@
 const express = require("express");
  require("dotenv").config()
-const http = require("http"); // ✅ create HTTP server
-const { Server } = require("socket.io"); // ✅ socket.io
+const http = require("http"); 
+const { Server } = require("socket.io");
 const { dbConnection } = require("./db");
 const { router } = require("./routes/Auth");
 const cors = require("cors");
@@ -14,27 +14,26 @@ const { popRouter } = require("./routes/PopupRouters");
 const photosRouter = require("./routes/photoRouter");
 
 const app = express();
-const server = http.createServer(app); // ✅ wrap express app with HTTP server
+const server = http.createServer(app); 
  const PORT=process.env.PORT
 const io = new Server(server, {
   cors: {
-    origin: "*", // allow all origins or your frontend URL
+    origin: "*", 
     methods: ["GET", "POST"],
   },
 });
 
-// ✅ Store io in app locals to use in controllers
+
 app.set("io", io);
 
-// ✅ Connect to DB
+
 dbConnection();
 
-// ✅ Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ credentials: true, exposedHeaders: ["X-Total-Count"] }));
 
-// ✅ Routes
+
 app.use("/api", router);
 app.use("/api", productRouter);
 app.use("/api", categoryRouter);
@@ -43,7 +42,7 @@ app.use("/api", cartRoutes);
 app.use("/api", notificationRouters);
 app.use("/api",popRouter)
 app.use("/api",photosRouter)
-// ✅ Socket.io logic
+
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
 
@@ -51,7 +50,7 @@ io.on("connection", (socket) => {
     console.log("Socket disconnected:", socket.id);
   });
 });
-// ✅ Start server with socket support
+
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
