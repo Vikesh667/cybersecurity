@@ -1,5 +1,3 @@
-// model/User.js
-
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -17,13 +15,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  role:{
-    type:String,
-    required:true,
-    default:"User"
-  }
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+    lowercase: true,
+    required: true,
+  },
 });
 
-// ✅ Correct export syntax
+
 const User = mongoose.model("User", userSchema);
 module.exports = { User };

@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const {User} = require("../model/User"); 
-const SECRET_KEY = "MY_SECRET_KEY";
 
 exports.protect = async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -17,9 +16,18 @@ exports.protect = async (req, res, next) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     req.user = user; // ✅ Now available in checkAuth
+    console.log(req.user)
     next();
   } catch (err) {
     console.error("JWT error:", err.message);
     res.status(403).json({ message: "Invalid or expired token" });
   }
 };
+exports.isAdmin = (req, res, next) => {
+  console.log(req.user.role)
+  if (req.user.role !== "Admin") {
+    return res.status(403).json({ message: "Access denied: Admins only" });
+  }
+  next();
+};
+

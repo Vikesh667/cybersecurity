@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../model/User");
 const createUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -13,8 +13,15 @@ const createUser = async (req, res) => {
     if (existingUser) {
       return res.status(409).json({ message: "Email already exists" });
     }
+
     const hassPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, password: hassPassword });
+    const newUser = new User({
+      name,
+      email,
+      password: hassPassword,
+      role,
+    });
+
     await newUser.save();
     res.status(201).json({ message: "User created", newUser });
   } catch (error) {
