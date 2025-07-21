@@ -12,6 +12,7 @@ const { cartRoutes } = require("./routes/Cart");
 const { notificationRouters } = require("./routes/NotificationRoutes");
 const { popRouter } = require("./routes/PopupRouters");
 const photosRouter = require("./routes/photoRouter");
+const { messageRouter } = require("./routes/MessageRoute");
 
 const app = express();
 const server = http.createServer(app); 
@@ -42,6 +43,7 @@ app.use("/api", cartRoutes);
 app.use("/api", notificationRouters);
 app.use("/api",popRouter)
 app.use("/api",photosRouter)
+app.use("/api",messageRouter)
 
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
