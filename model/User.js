@@ -22,8 +22,11 @@ const userSchema = new Schema({
     lowercase: true,
     required: true,
   },
+  image: {
+    type: String, // This will store the Cloudinary image URL
+    default: "",   // Optional: fallback if no image is uploaded
+  }
 });
-
 
 const User = mongoose.model("User", userSchema);
 module.exports = { User };

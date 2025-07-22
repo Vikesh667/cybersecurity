@@ -1,3 +1,4 @@
+
 const { User } = require("../model/User")
 
 
@@ -22,7 +23,7 @@ const getUserById=async(req,res)=>{
     try {
         const {id}=req.params
         const user=await User.findById(id).exec()
-         res.status(200).json({id:user._id,name:user.name,email:user.email ,role:user.role})
+         res.status(200).json({id:user._id,name:user.name,email:user.email ,role:user.role,image:user.image})
     } catch (error) {
          res.status(400).json({message:"User not found"})
          console.log(error)
@@ -38,10 +39,8 @@ const updateUserById = async (req, res) => {
     };
 
     if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      updateData.image = result.secure_url;
+      updateData.image = req.file.path;
     }
-
     const user = await User.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!user) {
