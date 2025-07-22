@@ -31,20 +31,30 @@ const getUserById=async(req,res)=>{
 const updateUserById = async (req, res) => {
   try {
     const { id } = req.params;
-    const updateData = {...req,body};
-    if(req.file){
-     updateData.image=req.file.path
+    const updateData = {
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role,
+    };
+
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      updateData.image = result.secure_url;
     }
+
     const user = await User.findByIdAndUpdate(id, updateData, { new: true });
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json(user); 
+    res.status(200).json(user);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 const deleteUser = async (req, res) => {
   try {
