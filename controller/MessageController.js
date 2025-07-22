@@ -23,5 +23,17 @@ const getAllMessage = async (req, res) => {
     res.status(200).json({ message });
   } catch (error) {}
 };
+const deleteMessage=async(req,res)=>{
+   try {
+    const {id}=req.params
+    const deletedMessage=await Message.findByIdAndDelete(id)
+    if(!deleteMessage){
+      res.status(301).json({message:"Something wrong while deleting the message"})
+    }
+    res.status(201).json({message:"The message is deleted successfully"})
+   } catch (error) {
+     res.status(404).json({error:error})
+   }
+}
 
-module.exports = { userMessage, getAllMessage };
+module.exports = { userMessage, getAllMessage ,deleteMessage};
