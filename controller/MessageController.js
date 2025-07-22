@@ -26,8 +26,8 @@ const getAllMessage = async (req, res) => {
 const deleteMessage=async(req,res)=>{
    try {
     const {id}=req.params
-    const deletedMessage=await Message.findByIdAndDelete(id)
-    if(!deleteMessage){
+    const deletedMessages=await Message.findByIdAndDelete(id)
+    if(!deletedMessages){
       res.status(301).json({message:"Something wrong while deleting the message"})
     }
     res.status(201).json({message:"The message is deleted successfully"})
